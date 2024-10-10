@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+            <style>
+                body {
+                    background-image:url("https://wallpapers.com/images/hd/faded-background-chi2uxjo9a9sh78y.jpg");
+                    background-repeat: repeat;
+                    background-size: cover;
+                }
+                form {
+                
+                background-color: rgb(255, 253, 253);
+                padding-left: 20px;
+                border-radius: 5px;
+            }
+            </style>
+            <title>APSIT WIKI </title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+            <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="row">
+            <div class="sidebar col-lg-2 col-md-3">
+                <h2>APSITWiki</h2>
+                <div>
+                    <a href="{% url 'index' %}">Home</a>
+                </div>
+                <div>
+                    <a href="{% url 'Function' %}">Function</a>
+                </div>
+                <div>
+                    <a href="{% url 'random' %}">Random Page</a>
+                </div>
+                <div>
+                    <a href="{% url 'login' %}">Log Out</a>
+                </div>
+                {% block nav %}
+                {% endblock %}
+            </div>
+            <div class="main col-lg-10 col-md-9">
+            <form method="POST" action="/search" ></form>
+            {% csrf_token %}
+            <input class="search" type="text" name="q" placeholder="Search wiki">
+            </form>
+            <form>
+                {% block body %}
+                {% endblock %}
+            </form>
+            </div>
+        </div>
+
+    </body>
+</html>

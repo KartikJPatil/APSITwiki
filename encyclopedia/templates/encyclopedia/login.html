@@ -1,0 +1,54 @@
+{% block body %}
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <style>
+            body {
+                background-image:url("https://thecustomizewindows.cachefly.net/wp-content/uploads/2023/11/Basic-Details-of-Knowledge-Base.jpg");
+                background-repeat: repeat;
+                background-size: cover;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+            form {
+                display: list-item;
+                background-color: rgb(224, 224, 224);
+                
+                padding: 100px;
+                padding-left: 100px;
+                padding-right: 100px;
+                border-radius: 5px;
+            }
+        </style>
+        <title>APSIT WIKI</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        
+        <form method="post">{% csrf_token %}
+            <h1 id="login">Login</h1>
+            
+            
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br>
+            
+            <button id="login" type="submit">Login</button>
+        </form>
+        <ul>
+            {% for entry in entries %}
+                <li><a href="{% url 'login' entry %}">{{ entry }}</a></li>
+            {% endfor %}
+        </ul>
+    </body>
+    <body>
+
+    </body>
+</html>
+{% endblock %}

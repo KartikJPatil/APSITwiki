@@ -1,0 +1,52 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+Search Results
+{% endblock %}
+
+{% block extra_head %}
+    <style>
+        .highlighted {
+            background-color: yellow; /* Yellow background color */
+            font-weight: bold; /* Bold font */
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<h1>Results For {{title}}</h1>
+
+<ul>
+    {% for filename, line_round, line_number, line_content in matched_results %}
+        <li>
+            <a href="{% url 'entrypage' filename %}#L{{ line_round }}">
+                {{ filename }}: </a> Line {{ line_number }} - {{ line_content }}
+            
+        </li>
+    {% endfor %}
+</ul>
+<script>
+    // Function to highlight lines based on the hash value in the URL
+    function highlightLinesFromHash() {
+        var hash = window.location.hash;
+        if (hash && hash.startsWith('#L')) {
+            var startLine = parseInt(hash.substring(2)); // Extract line number from the hash
+            var endLine = startLine + 10;
+
+            // Highlight the lines between startLine and endLine
+            var linesToHighlight = document.querySelectorAll('.line');
+            linesToHighlight.forEach(function(line) {
+                var lineNumber = parseInt(line.getAttribute('data-line-number'));
+                if (lineNumber >= startLine && lineNumber <= endLine) {
+                    line.classList.add('highlighted');
+                }
+            });
+        }
+    }
+
+    // Call the function when the page loads
+    window.addEventListener('load', highlightLinesFromHash);
+</script>
+
+
+{% endblock %}

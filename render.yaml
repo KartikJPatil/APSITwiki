@@ -1,0 +1,19 @@
+version: 1
+
+services:
+  - type: web
+    name: apsitwiki
+    env: python
+    buildCommand: python manage.py migrate
+    startCommand: python manage.py runserver 0.0.0.0:8000
+    envVars:
+      DJANGO_SECRET_KEY: '%710m*zic)#0u((qugw#1@e^ty!c)9j04956v@ly(_86n$rg)h'
+      DJANGO_SETTINGS_MODULE: 'wiki.settings'
+      DJANGO_ALLOWED_HOSTS: 'apsitwiki.onrender.com'
+    autoDeploy: true
+    branch: main
+    healthCheckPath: /
+    healthCheckInterval: 10s
+    healthCheckTimeout: 5s
+    healthCheckSuccessThreshold: 2
+    healthCheckFailureThreshold: 2
